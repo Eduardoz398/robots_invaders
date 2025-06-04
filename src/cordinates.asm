@@ -1,7 +1,7 @@
 section .data
     ansi_move db 0x1B, "[00;00H", 0
-    ansi_len equ 8  ; Tamanho corrigido (sem null terminator)
-    ansi_clear db 0x1B, "[2J", 0x1B, "[H", 0 ;depois trocar para uma função sleep
+    ansi_len equ 8 
+    ansi_clear db 0x1B, "[2J", 0x1B, "[H", 0 
     ansi_clear_len equ $ - ansi_clear
 
 section .text
