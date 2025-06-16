@@ -20,7 +20,7 @@ section .text
 
 _som:
 
-    ;----------------------------
+    
     ; open("/dev/null", O_WRONLY)
     
     mov rax, sys_open             
