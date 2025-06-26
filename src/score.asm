@@ -5,7 +5,8 @@ section .bss
 
 
 section .data
-    msg_end db "FIM! SUA PONTUACAO FOI ", 0
+    msg_end1 db "FIM! SUA PONTUACAO FOI ", 0
+    msg_end2 db "/25", 0
     msg_hit db "a hit", 10, 0
     line_feed db 0xA
 
@@ -30,13 +31,17 @@ _score:
 _final_score:
     call _clear
 
-    mov rsi, msg_end
+    mov rsi, msg_end1
     mov rdx, 23
     call write
     
     mov rsi, [pontuacao]
     call _print
     
+    mov rsi, msg_end2
+    mov rdx, 3
+    call write
+
     mov rsi, line_feed
     mov rdx, 1
     call write

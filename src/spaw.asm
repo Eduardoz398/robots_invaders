@@ -10,7 +10,7 @@ extern _echo
 desabilita equ 0
 habilita equ 1
 ASCII equ 0x30
-intervalo equ 0x20
+intervalo equ 0x30
 write equ 0x1
 
 

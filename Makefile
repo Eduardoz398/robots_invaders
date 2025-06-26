@@ -24,6 +24,10 @@ create_dirs:
 	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 	@mkdir -p $(dir $(OBJ_FILES))
 
+
+
+
+
 # Linkagem para criar o executável
 $(TARGET): $(OBJ_FILES)
 	$(LD) $(LD_FLAGS) -o $@ $^
@@ -31,6 +35,7 @@ $(TARGET): $(OBJ_FILES)
 # Compilação dos arquivos assembly
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.asm
 	$(NASM) $(NASM_FLAGS) -o $@ $<
+
 
 # Limpeza
 clean:

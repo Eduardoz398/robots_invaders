@@ -1,13 +1,14 @@
 desabilita equ 0
 habilita equ 1
-standard_time equ 2
+standard_time equ 1
 change_score equ 0
 final_score equ 1
 sys_fork equ 0x39
 sys_wait4 equ 0x3d
-
+soundtrack equ 0
+sound_hit equ 1
 section .bss
-    rodadas resb 1
+    rodadas resb 8
 
 
 section .data
@@ -25,6 +26,7 @@ section .text
 global _start
 
 global environ
+global rodadas
 extern _echo
 extern _monitorar
 extern _cordinate_randon
@@ -34,7 +36,7 @@ extern _clear
 extern _score
 extern _initialize_field
 extern _som
-
+extern _lobby
 
 _start:
     ; Recuperar endereço de environ
@@ -50,16 +52,16 @@ _start:
     cmp rax, 0
     jnz .next_arg            ; pular os argv até achar NULL
     ; agora rbx aponta para envp[0], ou seja, environ
-    mov [environ], rbx              ; r8 = environ (terceiro argumento de execve)
+    mov [environ], rbx             ; r8 = environ (terceiro argumento de execve)
 
-
+    call _lobby
     call _initialize_field
 
 loop: 
     mov al, 1
     add [rodadas], al
     mov al, [rodadas]
-    cmp al, 11
+    cmp al, 25
     je end
 
 
@@ -72,10 +74,10 @@ loop:
     call _clear
     call _cordinate_randon
     call _spaw
+    mov [key], al ; retorno
 
 
-    mov [key], al
-    call _monitorar
+    call _monitorar ; retorno em rax do tempo
     
     cmp rax, 0
     je timeout
@@ -112,7 +114,8 @@ hit:
     
     cmp rax, 0
     jne pai
-
+filho2:
+    mov rsi, sound_hit
     jmp _som
 
 

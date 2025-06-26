@@ -6,10 +6,17 @@ section .text
 
 
 global _monitorar
+extern rodadas
 extern _randon
 _monitorar:
-    mov rsi, 5000
-    call _randon
+    mov rax, [rodadas]
+    imul rax, rax, 155
+
+    mov rsi, 4000
+    sub rsi, rax
+
+    mov rax, rsi 
+
 
     mov [time], rax
 
@@ -20,6 +27,6 @@ _monitorar:
     mov rax, 7         
     mov rdi, pollfd  
     mov rsi, 1         
-    mov rdx, [time]      
+    mov rdx, [time]  
     syscall     
     ret
